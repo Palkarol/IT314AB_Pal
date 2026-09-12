@@ -15,71 +15,223 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My First Flutter Application',
-       home: Scaffold(
-        backgroundColor:  const Color.fromARGB(255, 9, 46, 109),
-         body: Center(
-          child: SizedBox(
-            width: 450,
-            height: 350,
+      home: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 9, 46, 109),
+        body: Center(
+          child: SingleChildScrollView(
+            
+           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
 
-            child: Card(
-              color: const Color.fromARGB(255, 164, 211, 250),
-              elevation: 12,
+              SizedBox(
+                width: 500,
+                height: 400,
 
-            child: Padding(
-              padding: EdgeInsets.all(30),
-              child: Column(
-             mainAxisAlignment: MainAxisAlignment.center,
-             children: [
+                child: Card(
+                  color: const Color.fromARGB(255, 164, 211, 250),
+                  elevation: 12,
 
-              Image.asset(
-                "assets/images/image.png",
-                width:100,
-                height:100,
-              ),
+                  child: Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
 
-              Text("Karol Raphael S. Pal",
-              style: TextStyle(
-                fontSize: 20,
-                color: const Color.fromARGB(255, 10, 70, 119),
-                fontWeight: FontWeight.bold,
-              ),
-              ),
+                      CircleAvatar(
+                        backgroundColor: const Color.fromARGB(255, 110, 178, 234),
+                        radius: 45,
+                        backgroundImage: AssetImage(
+                        "assets/images/image.png",
+                        ),
+                      ),
 
-              Text("BSIT-3",
-              style: TextStyle(
-                fontSize: 20,
-                color:  const Color.fromARGB(255, 10, 70, 119),
-                fontWeight: FontWeight.bold,
-              ),
-              ),
+                      Text("Karol Raphael S. Pal",
+                      style: TextStyle(
+                        fontSize: 26,
+                        color: const Color.fromARGB(255, 10, 70, 119),
+                        fontWeight: FontWeight.bold,
+                      ),
+                      ),
 
-              Text("My First Flutter Application",
-              style: TextStyle(
-                fontSize: 20,
-                color:  const Color.fromARGB(255, 10, 70, 119),
-                fontWeight: FontWeight.bold,
-              ),
-              ),
+                      SizedBox(height: 10),
+                      
+                      Text("BSIT-3",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: const Color.fromARGB(255, 10, 70, 119),
+                        fontWeight: FontWeight.w500,
+                      ),
+                      ),
 
-              Text("August 31, 2026",
-              style: TextStyle(
-                fontSize: 20,
-                color:  const Color.fromARGB(255, 10, 70, 119),
-                fontWeight: FontWeight.bold,
-              ),
-              ),
+                      SizedBox(height: 10),
 
+                      Text("My First Flutter Application",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: const Color.fromARGB(255, 10, 70, 119),
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                      ),
+                      ),
+
+                      SizedBox(height: 10),
+
+                      Text("August 31, 2026",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: const Color.fromARGB(255, 10, 70, 119),
+                        fontWeight: FontWeight.bold,
+                      ),
+                      ),
+
+                      SizedBox(height: 10),
+
+                       Text("Hobby:Sleeping",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: const Color.fromARGB(255, 10, 70, 119),
+                        fontWeight: FontWeight.bold,
+                      ),
+                      ),
+
+                      SizedBox(height: 10),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children:[
+                          Text("Age: 21",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: const Color.fromARGB(255, 10, 70, 119),
+                            fontWeight: FontWeight.bold,
+                          ),
+                          ),
+                          
+                          SizedBox(width: 10),
+
+                          Text("Birthdate: April 28, 2005",
+                          style: TextStyle(
+                            fontSize: 20,
+                             color: const Color.fromARGB(255, 10, 70, 119),
+                             fontWeight: FontWeight.bold,
+                          ),
+                          ),
+                        ],
+
+                      ),
+
+                    ],
+                  ),
+                ),
+                ),
+                
+              ),
+              SizedBox(height: 20),
+
+            SizedBox(
+              width: 500,
+              height: 400,
+
+              child: Card(
+                color: const Color.fromARGB(255, 164, 211, 250),
+                elevation: 12,
+
+                child: Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+
+                     CircleAvatar(
+                        backgroundColor:const Color.fromARGB(255, 110, 178, 234),
+                        radius: 45,
+                        backgroundImage: AssetImage(
+                        "assets/images/image.png",
+                        ),
+                      ),
+
+                      SizedBox(height: 10),
+                       
+                      Icon(
+                        Icons.star,
+                        size: 30,
+                        color: const Color.fromARGB(255, 10, 70, 119),
+                        weight: 200,
+                        opticalSize: 48,
+                      ),
+
+                      SizedBox(height: 10),
+
+                    Text("My Favorites",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: const Color.fromARGB(255, 10, 70, 119),
+                      fontWeight: FontWeight.bold,
+                    ),
+                    ),
+
+                    Divider(
+                      color: const Color.fromARGB(255, 10, 70, 119),
+                      thickness: 2,
+                      indent: 90,
+                      endIndent: 90,                      
+                    ),
+
+                    SizedBox(height: 20),
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+
+                        Text("Game:   Gossip Harbor",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: const Color.fromARGB(255, 10, 70, 119),
+                          fontWeight: FontWeight.bold,
+                        ),
+                        ),
+
+                        SizedBox(height: 10),
+
+                        Text("Food: chicken",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: const Color.fromARGB(255, 10, 70, 119),
+                          fontWeight: FontWeight.bold,
+                        ),
+                        ),
+
+                        SizedBox(height: 10),
+
+                        Text("Favorite Movie: Avengers: Inifinity War",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: const Color.fromARGB(255, 10, 70, 119),
+                          fontWeight: FontWeight.bold,
+                        ),
+                        ),
+                        
+
+                      ],
+
+                    ),
+                  ],
+                ),
+                ),
+              ),
+            ),
+
+              
             ],
           ),
-            ),
           ),
-          ),
-          
-
-         ),
-       ),
-        //
+        ),
+      ),
     );
   }
 }
