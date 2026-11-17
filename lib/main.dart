@@ -5,45 +5,111 @@ String course = "BSIT-3";
 int age = 21;
 String birthdate = "April 28, 2005";
 String hobby = "Sleeping";
-double height = 5.7;
+double height = 5.1;
 bool studentsStatus = true;
 String variableName = "assets/images/image.png";
 
+class Student {
+  final String image;
+  final String? name;
+  final String course;
+  final int yearLevel;
+  final int age;
+  final String? hobby;
+  final String studentId;
+  final String email;
+  final String favoritesSubjects;
 
-String name1 = "Karol Raphael S. Pal";
-String course1 = "BSIT-3";
-int age1 = 21;
-String hobby1 = "Sleeping";
-String variableName1 = "assets/images/image.png";
-
-String? name2 = null;
-String course2 = "BSIT-3";
-int age2 = 19;
-String? hobby2 = null;
-String variableName2 = "assets/images/image.png";
-
-String name3 = "Princess Mesha Malabay";
-String course3 = "BSIT-3";
-int age3 = 21;
-String hobby3 = "Traveling";
-String variableName3 = "assets/images/image.png";
-
-String name4 = "Crizza Mae Candar";
-String course4 = "BSIT-3";
-int age4 = 21;
-String hobby4 = "Listening to Music";
-String variableName4 = "assets/images/image.png";
-
-String name5 = "Crizzly Iya Sabellita";
-String course5 = "BSIT-3";
-int age5 = 20;
-String hobby5 = "Cooking";
-String variableName5 = "assets/images/image.png";
-
-void main() {
-  runApp(const MyApp());
+  Student({
+    required this.image,
+    this.name,
+    required this.course,
+    required this.yearLevel,
+    required this.age,
+    this.hobby,
+    required this.studentId,
+    required this.email,
+    required this.favoritesSubjects,
+  });
 }
 
+List<Student> students = [
+  Student(
+    image: "assets/images/karol.jpg",
+    name: "Karol Raphael S. Pal",
+    course: "BSIT",
+    yearLevel: 3,
+    age: 21,
+    hobby: "Sleeping",
+    studentId: "04282005",
+    email: "palkarolsasan@gmail.com",
+    favoritesSubjects: "Snacks",
+  ),
+  Student(
+    image: "assets/images/angela.jpg",
+    name: null,
+    course: "BSIT",
+    yearLevel: 3,
+    age: 19,
+    hobby: null,
+    studentId: "09172007",
+    email: "angela@gmail.com",
+    favoritesSubjects: "Chemistry",
+  ),
+  Student(
+    image: "assets/images/mesha.jpg",
+    name: "Princess Mesha Malabay",
+    course: "BSIT",
+    yearLevel: 3,
+    age: 21,
+    hobby: "Traveling",
+    studentId: "12182006",
+    email: "Mesha@gmail.com",
+    favoritesSubjects: "English",
+  ),
+  Student(
+    image: "assets/images/crizza.jpg",
+    name: "Crizza Mae Candar",
+    course: "BSIT",
+    yearLevel: 3,
+    age: 21,
+    hobby: "Listening to Music",
+    studentId: "121106",
+    email: "criza@gmail.com",
+    favoritesSubjects: "Math",
+  ),
+  Student(
+    image: "assets/images/iya.jpg",
+    name: "Crizzly Iya Sabellita",
+    course: "BSIT",
+    yearLevel: 3,
+    age: 20,
+    hobby: "Cooking",
+    studentId: "11232005",
+    email: "crizzly@gmail.com",
+    favoritesSubjects: "English",
+  ),
+  Student(
+    image: "assets/images/blue.png",
+    name: "Dominique Felicity Gonzales",
+    course: "BSIT",
+    yearLevel: 3,
+    age: 20,
+    hobby: "Drawing",
+    studentId: "05052006",
+    email: "Dominique@gmail.com",
+    favoritesSubjects: "Physics",
+  ),
+];
+
+
+
+void main() {
+  // students.sort((a, b) => (a.name ?? "Unknown Student")
+  //   .toLowerCase()
+  //   .compareTo((b.name ?? "Unknown Student").toLowerCase()));
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -51,144 +117,132 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My First Flutter Applocation',
+      title: 'My First Flutter Application',
       home: Scaffold(
-        backgroundColor: const Color. fromARGB(255, 9, 46, 109),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-
-                SizedBox(
+        backgroundColor: const Color.fromARGB(255, 9, 46, 109),
+        body: ListView.builder(
+          itemCount: students.isEmpty ? 3 : students.length + 2,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return Center(
+                child: SizedBox(
                   width: 500,
                   height: 400,
-
                   child: Card(
                     color: const Color.fromARGB(255, 164, 211, 250),
                     elevation: 12,
-
                     child: Padding(
                       padding: const EdgeInsets.all(30),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          Image.asset(variableName, width: 100, height: 100),
 
-                          Image.asset(
-                            variableName,
-                            width: 100,
-                            height: 100,                             
+                          Text(
+                            name,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Color.fromARGB(255, 10, 70, 119),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
 
-                          Text(name,
-                          style: TextStyle(
-                           fontSize: 20,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
+                          SizedBox(height: 10),
+
+                          Text(
+                            course,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Color.fromARGB(255, 10, 70, 119),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
 
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10),
 
-                          Text(course,
-                          style: TextStyle(
-                           fontSize: 20,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-
-                          SizedBox(height: 10,),
-
-                          Text("My First Application",
-                          style: TextStyle(
-                           fontSize: 20,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
+                          Text(
+                            "August 31,2026",
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Color.fromARGB(255, 10, 70, 119),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
 
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10),
 
-                          Text("August 31,2026",
-                          style: TextStyle(
-                           fontSize: 20,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-
-                          SizedBox(height: 10,),
-
-                          Text("Hobby: $hobby",
-                          style: TextStyle(
-                           fontSize: 20,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
+                          Text(
+                            "Hobby: $hobby",
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Color.fromARGB(255, 10, 70, 119),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
 
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text("Age: $age",
-                              style: TextStyle(
-                               fontSize: 20,
-                               color: const Color.fromARGB(255, 10, 70, 119),
-                               fontWeight: FontWeight.bold,
+                              Text(
+                                "Age: $age",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 10, 70, 119),
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              ),
-                              
-                              SizedBox(width: 10,),
 
-                              Text("Birthdate: $birthdate",
-                              style: TextStyle(
-                               fontSize: 20,
-                               color: const Color.fromARGB(255, 10, 70, 119),
-                               fontWeight: FontWeight.bold,
-                              ),
+                              SizedBox(width: 10),
+
+                              Text(
+                                "Birthdate: $birthdate",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 10, 70, 119),
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           ),
                         ],
-                      ),                     
+                      ),
                     ),
                   ),
                 ),
+              );
+            }
 
-
-                SizedBox(
+            if (index == 1) {
+              return Center(
+                child: SizedBox(
                   width: 500,
                   height: 400,
-
                   child: Card(
                     color: const Color.fromARGB(255, 164, 211, 250),
                     elevation: 12,
-
                     child: Padding(
                       padding: EdgeInsets.all(30),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                                            
                           Image.asset(
                             "assets/images/image.png",
                             width: 100,
-                            height: 100,                             
+                            height: 100,
                           ),
 
-                          Text("My Favorites",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: const Color.fromARGB(255, 10, 70, 119),
-                            fontWeight: FontWeight.bold,
-                          ),
+                          Text(
+                            "My Favorites",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: const Color.fromARGB(255, 10, 70, 119),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
 
                           Divider(
@@ -198,381 +252,205 @@ class MyApp extends StatelessWidget {
                             endIndent: 90,
                           ),
 
-                          SizedBox(height: 20,),
+                          SizedBox(height: 10),
 
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-
-                              Text("Game: Gossip Harbor",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: const Color.fromARGB(255, 10, 70, 119),
-                                fontWeight: FontWeight.bold,
-                              ),
-                              ),
-
-                              SizedBox(height:10),
-
-                              
-                              Text("Food: Chicken",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: const Color.fromARGB(255, 10, 70, 119),
-                                fontWeight: FontWeight.bold,
-                              ),
+                              Text(
+                                "Game: Gossip Harbor",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: const Color.fromARGB(255, 10, 70, 119),
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
 
-                              SizedBox(height:10),
+                              SizedBox(height: 10),
 
-                              
-                              Text("Movie: Infinity War",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: const Color.fromARGB(255, 10, 70, 119),
-                                fontWeight: FontWeight.bold,
-                              ),
+                              Text(
+                                "Food: Chicken",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: const Color.fromARGB(255, 10, 70, 119),
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
 
+                              SizedBox(height: 10),
+
+                              Text(
+                                "Movie: Infinity War",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: const Color.fromARGB(255, 10, 70, 119),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ],
                           ),
-
                         ],
                       ),
                     ),
                   ),
                 ),
+              );
+            }
 
+            if (students.isEmpty) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 70, vertical: 30),
+                child: Card(
+                  color: const Color.fromARGB(255, 164, 211, 250),
+                  elevation: 12,
+                  child: Padding(
+                    padding: EdgeInsets.all(30),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.people_outline,
+                          size: 60,
+                          color: Color.fromARGB(255, 10, 70, 119),
+                        ),
 
-                SizedBox(
-                  width: 500,
-              
+                        SizedBox(height: 10),
 
-                  child: Card(
-                    color: const Color.fromARGB(255, 164, 211, 250),
-                    elevation: 12,
-
-                    child: Padding(
-                      padding: EdgeInsets.all(30),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-
-                          Image.asset(
-                          "assets/images/image.png",
-                          width: 50,
-                          height: 50,                             
-                          ),
-
-                          Text(name1,
+                        Text(
+                          "No students found.",
                           style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 10, 70, 119),
+                            fontWeight: FontWeight.bold,
                           ),
-                          ),
+                        ),
 
-                          SizedBox(height: 5,),
+                        SizedBox(height: 5),
 
-                          Text(course1,
+                        Text(
+                          "Student list is empty.",
                           style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Color.fromARGB(255, 10, 70, 119),
                           ),
-                          ),
-
-                          SizedBox(height: 5,),
-
-                          Text("Age: $age",
-                          style: TextStyle(
-                          fontSize: 15,
-                          color: const Color.fromARGB(255, 10, 70, 119),
-                          fontWeight: FontWeight.bold,
-                           ),
-                           ),
-
-                          SizedBox(height: 5,),
-
-                          Text("Hobby: $hobby",
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-                        ],
-           
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
+              );
+            }
 
-                SizedBox(
-                  width: 500,
-              
+            final student = students[index - 2];
 
-                  child: Card(
-                    color: const Color.fromARGB(255, 164, 211, 250),
-                    elevation: 12,
-
-                    child: Padding(
-                      padding: EdgeInsets.all(30),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-
-                          Image.asset(
-                          "assets/images/image.png",
-                          width: 50,
-                          height: 50,                             
-                          ),
-
-                          Text(name2 ?? "unknown",
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-
-                          SizedBox(height: 5,),
-
-                          Text(course2,
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-
-                          SizedBox(height: 5,),
-
-                          Text("Age: $age2",
-                          style: TextStyle(
-                          fontSize: 15,
-                          color: const Color.fromARGB(255, 10, 70, 119),
-                          fontWeight: FontWeight.bold,
-                           ),
-                           ),
-
-                          SizedBox(height: 5,),
-
-                          Text("Hobby: ${hobby2 ?? "No hobby"}",
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-                        ],
-           
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 70, vertical: 1),
+              child: Card(
+                color: const Color.fromARGB(255, 164, 211, 250),
+                elevation: 12,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: 30,
+                    right: 30,
+                    top: 20,
+                    bottom: 20,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: AssetImage(student.image),
                       ),
-                    ),
+
+                      SizedBox(width: 10),
+
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Name: ${student.name ?? "Unknown Student"}",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: const Color.fromARGB(255, 10, 70, 119),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+
+                            Text(
+                              "Course: ${student.course}",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: const Color.fromARGB(255, 10, 70, 119),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+
+                            Text(
+                              "Year Level: ${student.yearLevel}",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: const Color.fromARGB(255, 10, 70, 119),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+
+                            Text(
+                              "Age: ${student.age}",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: const Color.fromARGB(255, 10, 70, 119),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+
+                            Text(
+                              "Hobby: ${student.hobby ?? "No hobby"}",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: const Color.fromARGB(255, 10, 70, 119),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+
+                            Text(
+                              "Student ID: ${student.studentId}",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: const Color.fromARGB(255, 10, 70, 119),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+
+                            Text(
+                              "Email: ${student.email}",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: const Color.fromARGB(255, 10, 70, 119),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+
+                            Text(
+                              "Favorite Subject: ${student.favoritesSubjects}",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: const Color.fromARGB(255, 10, 70, 119),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-
-
-                SizedBox(
-                  width: 500,
-              
-
-                  child: Card(
-                    color: const Color.fromARGB(255, 164, 211, 250),
-                    elevation: 12,
-
-                    child: Padding(
-                      padding: EdgeInsets.all(30),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-
-                          Image.asset(
-                          "assets/images/image.png",
-                          width: 50,
-                          height: 50,                             
-                          ),
-
-                          Text(name3,
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-
-                          SizedBox(height: 5,),
-
-                          Text(course3,
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-
-                          SizedBox(height: 5,),
-
-                          Text("Age: $age3",
-                          style: TextStyle(
-                          fontSize: 15,
-                          color: const Color.fromARGB(255, 10, 70, 119),
-                          fontWeight: FontWeight.bold,
-                           ),
-                           ),
-
-                          SizedBox(height: 5,),
-
-                          Text("Hobby: $hobby3",
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-                        ],
-           
-                      ),
-                    ),
-                  ),
-                ),
-
-                SizedBox(
-                  width: 500,
-              
-
-                  child: Card(
-                    color: const Color.fromARGB(255, 164, 211, 250),
-                    elevation: 12,
-
-                    child: Padding(
-                      padding: EdgeInsets.all(30),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-
-                          Image.asset(
-                          "assets/images/image.png",
-                          width: 50,
-                          height: 50,                             
-                          ),
-
-                          Text(name4,
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-
-                          SizedBox(height: 5,),
-
-                          Text(course4,
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-
-                          SizedBox(height: 5,),
-
-                          Text("Age: $age4",
-                          style: TextStyle(
-                          fontSize: 15,
-                          color: const Color.fromARGB(255, 10, 70, 119),
-                          fontWeight: FontWeight.bold,
-                           ),
-                           ),
-
-                          SizedBox(height: 5,),
-
-                          Text("Hobby: $hobby4",
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-                        ],
-           
-                      ),
-                    ),
-                  ),
-                ),
-
-                SizedBox(
-                  width: 500,
-              
-
-                  child: Card(
-                    color: const Color.fromARGB(255, 164, 211, 250),
-                    elevation: 12,
-
-                    child: Padding(
-                      padding: EdgeInsets.all(30),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-
-                          Image.asset(
-                          "assets/images/image.png",
-                          width: 50,
-                          height: 50,                             
-                          ),
-
-                          Text(name5,
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-
-                          SizedBox(height: 5,),
-
-                          Text(course5,
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-
-                          SizedBox(height: 5,),
-
-                          Text("Age: $age5",
-                          style: TextStyle(
-                          fontSize: 15,
-                          color: const Color.fromARGB(255, 10, 70, 119),
-                          fontWeight: FontWeight.bold,
-                           ),
-                           ),
-
-                          SizedBox(height: 5,),
-
-                          Text("Hobby: $hobby5",
-                          style: TextStyle(
-                           fontSize: 15,
-                           color: const Color.fromARGB(255, 10, 70, 119),
-                           fontWeight: FontWeight.bold,
-                          ),
-                          ),
-                        ],
-           
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
