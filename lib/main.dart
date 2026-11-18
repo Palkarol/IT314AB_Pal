@@ -19,6 +19,7 @@ class Student {
   final String studentId;
   final String email;
   final String favoritesSubjects;
+  bool isFavorite;
 
   Student({
     required this.image,
@@ -30,6 +31,7 @@ class Student {
     required this.studentId,
     required this.email,
     required this.favoritesSubjects,
+    this.isFavorite = false,
   });
 }
 
@@ -105,15 +107,20 @@ List<Student> students = [
 
 
 void main() {
-  // students.sort((a, b) => (a.name ?? "Unknown Student")
-  //   .toLowerCase()
-  //   .compareTo((b.name ?? "Unknown Student").toLowerCase()));
+  students.sort((a, b) => (a.name ?? "Unknown Student")
+    .toLowerCase()
+    .compareTo((b.name ?? "Unknown Student").toLowerCase()));
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -346,8 +353,19 @@ class MyApp extends StatelessWidget {
 
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 70, vertical: 1),
+              child: GestureDetector(
+                onTap:() {
+                  print('${student.name ?? "Unknown Student"} card was tapped!');
+                   ScaffoldMessenger.of(context).showSnackBar(
+                   SnackBar(
+                    content: Text('${student.name ?? "Unknown Student"} card was tapped'), 
+                   duration: Duration(seconds: 1)),
+                   );
+                },
               child: Card(
-                color: const Color.fromARGB(255, 164, 211, 250),
+                color: student.isFavorite
+                ? const Color.fromARGB(255, 255, 230, 150)
+                : const Color.fromARGB(255, 164, 211, 250),
                 elevation: 12,
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -442,12 +460,111 @@ class MyApp extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+
+                            SizedBox(height: 8),
+                            
+                            Wrap(
+                              spacing: 8,
+                              children: [
+                               
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                     backgroundColor: const Color.fromARGB(255, 129, 190, 240),
+                                  ),
+                                  onPressed: () {
+                                     setState(() {
+                                      student.isFavorite = !student.isFavorite;
+                                    });
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                       student.isFavorite ? Icons.star : Icons.favorite_border,
+                                       color: student.isFavorite ? Colors.amber : Colors.blue,
+                                       size: 16,
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        student.isFavorite ? 'Favorited!' : 'Favorite',
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          color: const Color.fromARGB(255, 10, 70, 119),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                     backgroundColor: const Color.fromARGB(255, 129, 190, 240),
+                                  ),
+                                  onPressed: () {
+                                    print('Edit button was pressed!');
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          backgroundColor: const Color.fromARGB(255, 164, 211, 250),
+                                          title: Text('${student.name ?? "Unknown Student"}',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: const Color.fromARGB(255, 10, 70, 119),
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          content: Text('Edit button was pressed!',
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              color: const Color.fromARGB(255, 10, 70, 119),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Text('Edit',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                     color: const Color.fromARGB(255, 10, 70, 119),
+                                       fontWeight: FontWeight.bold,
+                                  ),
+                                  ),
+                                ),
+
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                   backgroundColor: Colors.red,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                     students.remove(student);
+                                    });
+                                  },
+                                  child: Text(
+                                    'Delete',
+                                    style: TextStyle(
+                                     fontSize: 10,
+                                     color: Colors.white,
+                                     fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+
+                            
+
                           ],
                         ),
                       ),
                     ],
                   ),
                 ),
+              ),
               ),
             );
           },
