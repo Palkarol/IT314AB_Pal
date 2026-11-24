@@ -11,15 +11,17 @@ String variableName = "assets/images/image.png";
 
 class Student {
   final String image;
-  final String? name;
+  String? name;
   final String course;
   final int yearLevel;
   final int age;
-  final String? hobby;
+  String? hobby;
   final String studentId;
   final String email;
   final String favoritesSubjects;
   bool isFavorite;
+  bool isActive;
+  bool showDetails;
 
   Student({
     required this.image,
@@ -32,78 +34,96 @@ class Student {
     required this.email,
     required this.favoritesSubjects,
     this.isFavorite = false,
+    this.isActive = true,
+    this.showDetails = true,
+    
+    
   });
 }
 
-List<Student> students = [
-  Student(
-    image: "assets/images/karol.jpg",
-    name: "Karol Raphael S. Pal",
-    course: "BSIT",
-    yearLevel: 3,
-    age: 21,
-    hobby: "Sleeping",
-    studentId: "04282005",
-    email: "palkarolsasan@gmail.com",
-    favoritesSubjects: "Snacks",
-  ),
-  Student(
-    image: "assets/images/angela.jpg",
-    name: null,
-    course: "BSIT",
-    yearLevel: 3,
-    age: 19,
-    hobby: null,
-    studentId: "09172007",
-    email: "angela@gmail.com",
-    favoritesSubjects: "Chemistry",
-  ),
-  Student(
-    image: "assets/images/mesha.jpg",
-    name: "Princess Mesha Malabay",
-    course: "BSIT",
-    yearLevel: 3,
-    age: 21,
-    hobby: "Traveling",
-    studentId: "12182006",
-    email: "Mesha@gmail.com",
-    favoritesSubjects: "English",
-  ),
-  Student(
-    image: "assets/images/crizza.jpg",
-    name: "Crizza Mae Candar",
-    course: "BSIT",
-    yearLevel: 3,
-    age: 21,
-    hobby: "Listening to Music",
-    studentId: "121106",
-    email: "criza@gmail.com",
-    favoritesSubjects: "Math",
-  ),
-  Student(
-    image: "assets/images/iya.jpg",
-    name: "Crizzly Iya Sabellita",
-    course: "BSIT",
-    yearLevel: 3,
-    age: 20,
-    hobby: "Cooking",
-    studentId: "11232005",
-    email: "crizzly@gmail.com",
-    favoritesSubjects: "English",
-  ),
-  Student(
-    image: "assets/images/blue.png",
-    name: "Dominique Felicity Gonzales",
-    course: "BSIT",
-    yearLevel: 3,
-    age: 20,
-    hobby: "Drawing",
-    studentId: "05052006",
-    email: "Dominique@gmail.com",
-    favoritesSubjects: "Physics",
-  ),
-];
+List<Student> buildStudents() {
+  return [
+    Student(
+      image: "assets/images/karol.jpg",
+      name: "Karol Raphael S. Pal",
+      course: "BSIT",
+      yearLevel: 3,
+      age: 21,
+      hobby: "Sleeping",
+      studentId: "04282005",
+      email: "palkarolsasan@gmail.com",
+      favoritesSubjects: "Snacks",
+      isActive: true,
+      
+    ),
+    Student(
+      image: "assets/images/angela.jpg",
+      name: null,
+      course: "BSIT",
+      yearLevel: 3,
+      age: 19,
+      hobby: null,
+      studentId: "09172007",
+      email: "angela@gmail.com",
+      favoritesSubjects: "Chemistry",
+      isActive: true,
+      
+    ),
+    Student(
+      image: "assets/images/mesha.jpg",
+      name: "Princess Mesha Malabay",
+      course: "BSIT",
+      yearLevel: 3,
+      age: 21,
+      hobby: "Traveling",
+      studentId: "12182006",
+      email: "Mesha@gmail.com",
+      favoritesSubjects: "English",
+      isActive: true,
+      
+    ),
+    Student(
+      image: "assets/images/crizza.jpg",
+      name: "Crizza Mae Candar",
+      course: "BSIT",
+      yearLevel: 3,
+      age: 21,
+      hobby: "Listening to Music",
+      studentId: "121106",
+      email: "criza@gmail.com",
+      favoritesSubjects: "Math",
+      isActive: true,
+    ),
+    Student(
+      image: "assets/images/iya.jpg",
+      name: "Crizzly Iya Sabellita",
+      course: "BSIT",
+      yearLevel: 3,
+      age: 20,
+      hobby: "Cooking",
+      studentId: "11232005",
+      email: "crizzly@gmail.com",
+      favoritesSubjects: "English",
+      isActive: true,
+      
+    ),
+    Student(
+      image: "assets/images/blue.png",
+      name: "Dominique Felicity Gonzales",
+      course: "BSIT",
+      yearLevel: 3,
+      age: 20,
+      hobby: "Drawing",
+      studentId: "05052006",
+      email: "Dominique@gmail.com",
+      favoritesSubjects: "Physics",
+      isActive: true,
+     
+    ),
+  ];
+}
 
+List<Student> students = buildStudents();
 
 
 void main() {
@@ -121,13 +141,118 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp>{
+
+  bool _isLoading =  true ;
+
+ @override
+
+ void initState(){
+  super.initState();
+   Future.delayed(const Duration(seconds: 5), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
+    void restoreStudents() {
+    setState(() {
+      _isLoading = true;
+    });
+
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        students = buildStudents();
+        students.sort((a, b) => (a.name ?? "Unknown Student")
+            .toLowerCase()
+            .compareTo((b.name ?? "Unknown Student").toLowerCase()));
+        _isLoading = false;
+      });
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My First Flutter Application',
       home: Scaffold(
         backgroundColor: const Color.fromARGB(255, 9, 46, 109),
-        body: ListView.builder(
+         body: _isLoading
+            ? const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      color: Color.fromARGB(255, 164, 211, 250),
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      "Loading Student Directory...",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+              : students.isEmpty
+              ? Center(
+                child: Card(
+                  color: const Color.fromARGB(255, 164, 211, 250),
+                  elevation: 12,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 30),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                         Icons.people_outline,
+                         size: 60,
+                          color: Color.fromARGB(255, 10, 70, 119),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "No student found.",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 10, 70, 119),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          "Student list is empty.",
+                          style: TextStyle(
+                          fontSize: 14,
+                          color: Color.fromARGB(255, 10, 70, 119),
+                          ),
+                        ),
+
+                        SizedBox(height: 15),
+                        ElevatedButton(
+                           style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color.fromARGB(255, 129, 190, 240),
+                            ),
+                          onPressed: () {
+                            restoreStudents();
+                          },
+                          child: Text(
+                          "Restore Students",
+                            style: TextStyle(
+                             fontSize: 12,
+                             color: Color.fromARGB(255, 10, 70, 119),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ), 
+                ),
+              )
+          : ListView.builder(
           itemCount: students.isEmpty ? 3 : students.length + 2,
           itemBuilder: (context, index) {
             if (index == 0) {
@@ -237,6 +362,7 @@ class _MyAppState extends State<MyApp>{
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+
                           Image.asset(
                             "assets/images/image.png",
                             width: 100,
@@ -305,50 +431,6 @@ class _MyAppState extends State<MyApp>{
               );
             }
 
-            if (students.isEmpty) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 70, vertical: 30),
-                child: Card(
-                  color: const Color.fromARGB(255, 164, 211, 250),
-                  elevation: 12,
-                  child: Padding(
-                    padding: EdgeInsets.all(30),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.people_outline,
-                          size: 60,
-                          color: Color.fromARGB(255, 10, 70, 119),
-                        ),
-
-                        SizedBox(height: 10),
-
-                        Text(
-                          "No students found.",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 10, 70, 119),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-
-                        SizedBox(height: 5),
-
-                        Text(
-                          "Student list is empty.",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Color.fromARGB(255, 10, 70, 119),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            }
-
             final student = students[index - 2];
 
             return Padding(
@@ -374,6 +456,8 @@ class _MyAppState extends State<MyApp>{
                     top: 20,
                     bottom: 20,
                   ),
+
+                    
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -461,7 +545,28 @@ class _MyAppState extends State<MyApp>{
                               ),
                             ),
 
-                            SizedBox(height: 8),
+                            
+                            if (student.isFavorite)
+                              Text(
+                                "★ Favorite",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                                         
+                              if (student.isActive)
+                                Text(
+                                  "Active",
+                                  style: TextStyle(
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                  ),
+                                ),
+
+                              SizedBox(height: 10),
                             
                             Wrap(
                               spacing: 8,
@@ -496,6 +601,7 @@ class _MyAppState extends State<MyApp>{
                                     ],
                                   ),
                                 ),
+
 
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
@@ -534,10 +640,10 @@ class _MyAppState extends State<MyApp>{
                                   ),
                                   ),
                                 ),
-
+                                
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                   backgroundColor: Colors.red,
+                                  backgroundColor: const Color.fromARGB(255, 129, 190, 240),
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -548,16 +654,60 @@ class _MyAppState extends State<MyApp>{
                                     'Delete',
                                     style: TextStyle(
                                      fontSize: 10,
-                                     color: Colors.white,
+                                     color: const Color.fromARGB(255, 10, 70, 119),
                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
+
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color.fromARGB(255, 129, 190, 250),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      student.isActive = !student.isActive;
+                                    });
+
+                                    if (!student.isActive){
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            backgroundColor: const Color.fromARGB(255, 164, 211, 250),
+                                            title: Text(
+                                              '${student.name ?? "Unknown Student"}',
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                color: const Color.fromARGB(255, 10, 70, 119),
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            content: Text(
+                                              student.isActive ? 'Active' : 'Inactive',
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                color: const Color.fromARGB(255, 10, 70, 119),
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          );  
+                                        },   
+                                      );
+                                    }
+                                  },
+                                  child: Text(
+                                  student.isActive ? 'Set Inactive' : 'Set Active',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: const Color.fromARGB(255, 10, 70, 119),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                                
                               ],
                             )
-
-                            
-
                           ],
                         ),
                       ),
@@ -573,3 +723,4 @@ class _MyAppState extends State<MyApp>{
     );
   }
 }
+
