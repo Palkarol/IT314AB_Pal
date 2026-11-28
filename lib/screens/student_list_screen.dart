@@ -45,6 +45,7 @@ class _StudentListScreenState extends State<StudentListScreen>{
             .compareTo((b.name ?? "Unknown Student").toLowerCase()));
         _isLoading = false;
       });
+      saveStudents();
     });
   }
 
@@ -56,7 +57,9 @@ class _StudentListScreenState extends State<StudentListScreen>{
         floatingActionButton: FloatingActionButton.extended(
         backgroundColor: const Color.fromARGB(255, 129, 190, 240),
         onPressed: () {
-        Navigator.pushNamed(context, '/add-student');
+          Navigator.pushNamed(context, '/add-student').then((value) {
+            setState(() {});
+          });
         },
         icon: Icon(
           Icons.add,
@@ -542,6 +545,7 @@ class _StudentListScreenState extends State<StudentListScreen>{
                                     setState(() {
                                      students.remove(student);
                                     });
+                                    saveStudents();
                                   },
                                   child: Text(
                                     'Delete',

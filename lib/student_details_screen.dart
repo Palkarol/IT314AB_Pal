@@ -198,6 +198,8 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
                                   widget.student.hobby = hobbyController.text;
                                 }
                               });
+                            
+                              saveStudents();
                               Navigator.pop(context);
                             },
                             child: Text("Save",

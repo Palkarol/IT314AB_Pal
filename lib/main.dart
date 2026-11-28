@@ -4,7 +4,10 @@ import 'student_details_screen.dart';
 import 'screens/student_list_screen.dart';
 import 'screens/add_student_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await loadStudents();
+
   students.sort((a, b) => (a.name ?? "Unknown Student")
     .toLowerCase()
     .compareTo((b.name ?? "Unknown Student").toLowerCase()));

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
 class Student {
   final String image;
   String? name;
@@ -112,6 +115,66 @@ List<Student> buildStudents() {
   ];
 }
 
+Map<String, dynamic> studentToMap(Student student) {
+  return {
+    'image': student.image,
+    'name': student.name,
+    'course': student.course,
+    'yearLevel': student.yearLevel,
+    'age': student.age,
+    'hobby': student.hobby,
+    'studentId': student.studentId,
+    'email': student.email,
+    'favoritesSubjects': student.favoritesSubjects,
+    'isFavorite': student.isFavorite,
+    'isActive': student.isActive,
+  };
+}
+
+Student studentFromMap(Map<String, dynamic> map) {
+  return Student(
+    image: map['image'],
+    name: map['name'],
+    course: map['course'],
+    yearLevel: map['yearLevel'],
+    age: map['age'],
+    hobby: map['hobby'],
+    studentId: map['studentId'],
+    email: map['email'],
+    favoritesSubjects: map['favoritesSubjects'],
+    isFavorite: map['isFavorite'],
+    isActive: map['isActive'],
+  );
+}
+
 List<Student> students = buildStudents();
+
+Future<void> saveStudents() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  List<Map<String, dynamic>> list = [];
+  for (Student s in students) {
+    list.add(studentToMap(s));
+  }
+
+  String text = jsonEncode(list);
+  await prefs.setString('students', text);
+}
+
+Future<void> loadStudents() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  String? text = prefs.getString('students');
+  if (text == null) {
+    return;
+  }
+
+  List<dynamic> list = jsonDecode(text);
+  List<Student> loaded = [];
+  for (var item in list) {
+    loaded.add(studentFromMap(item));
+  }
+  students = loaded;
+}
 
 
